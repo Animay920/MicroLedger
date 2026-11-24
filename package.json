@@ -1,0 +1,33 @@
+{
+  "name": "microledger",
+  "version": "1.0.0",
+  "description": "Production-grade, concurrency-safe Joint Liability Group (JLG) microfinance operations platform with double-entry cryptographic ledger and RBI regulatory compliance.",
+  "private": true,
+  "main": "Backend/server.js",
+  "scripts": {
+    "start": "node Backend/server.js",
+    "dev": "node Backend/server.js",
+    "build": "npm --prefix Frontend run build",
+    "install:all": "npm --prefix Backend install && npm --prefix Frontend install",
+    "init:db": "node scripts/init_database.js",
+    "verify": "node scripts/verify_system.js"
+  },
+  "keywords": [
+    "microfinance",
+    "joint-liability-group",
+    "jlg",
+    "shg",
+    "cryptographic-ledger",
+    "double-entry-accounting",
+    "rbi-compliance",
+    "postgresql",
+    "react",
+    "vite"
+  ],
+  "author": "Google DeepMind Engineer",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
