@@ -15,6 +15,24 @@ app.use(rateLimit({ windowMs: 60_000, limit: 120 }));
 // Health check endpoint
 app.get("/health", (_req, res) => res.json({ status: "ok", service: "MicroLedger API" }));
 
+let bootstrapPromise = null;
+function ensureDatabaseBootstrapped() {
+  if (!bootstrapPromise) {
+    bootstrapPromise = bootstrapDatabase();
+  }
+  return bootstrapPromise;
+}
+
+// Ensure database is initialized before processing any requests
+app.use(async (req, res, next) => {
+  try {
+    await ensureDatabaseBootstrapped();
+  } catch (err) {
+    console.warn("Bootstrap middleware notice:", err.message);
+  }
+  next();
+});
+
 // API Routes
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/admin", require("./routes/admin"));
